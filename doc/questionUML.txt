@@ -1,2 +1,28 @@
 Ecrire ici votre réponse à la question UML.
 
+1. Premier diagramme :
+Dans le premier modèle UML,tous les événements sont regroupés dans une seule classe Event. 
+La répétition n’est pas un type d’événement différent, mais simplement une option ajoutée à travers les classes Repetition et Termination. 
+Cette approche présente un avantage important : elle est très flexible. 
+Un événement peut rester simple ou devenir répétitif sans changer de classe, ce qui évite de multiplier les types d’événements. 
+De plus, les responsabilités sont clairement séparées : 
+Event gère les informations de base, Repetition s’occupe de la fréquence, et Termination gère la fin de la répétition. 
+Cependant, cette solution rend la classe Event plus lourde, car elle doit gérer plusieurs cas différents. 
+Elle est aussi moins directe à comprendre : en lisant seulement le type d’un objet, on ne sait pas immédiatement s’il s’agit d’un événement répétitif ou non.
+
+2. Deuxième diagramme :
+
+Le deuxième modèle adopte une organisation basée sur l’héritage. 
+Ici, un événement simple est représenté par Event, un événement répétitif devient une sous-classe RepetitiveEvent, et un événement répétitif avec une fin précise devient FixedTerminationEvent. 
+Cette approche est plus facile à lire et ressemble davantage à la façon dont on décrit les événements dans la vie courante. 
+On peut voir rapidement, grâce au type de l’objet, s’il s’agit d’un événement répétitif ou non. 
+De plus, chaque catégorie d’événement peut avoir ses propres méthodes, ce qui évite d’ajouter trop de conditions dans le code. 
+En revanche, cette solution est plus rigide. Dès qu’on veut ajouter un nouveau type d’événement, il faut créer une nouvelle sous-classe. 
+Cela peut faire grossir le modèle et le rendre plus difficile à maintenir dans le temps.
+
+Conclusion :
+
+En résumé, le premier modèle offre plus de souplesse et s’adapte mieux à des évolutions futures, car il évite de multiplier les sous-classes. 
+Le second modèle, lui, est plus simple à comprendre au premier coup d’oeil et donne une structure plus claire aux différents types d’événements. 
+Le choix entre les deux dépend donc des besoins du projet : si l’on cherche la flexibilité, le premier modèle est plus adapté ; 
+si l’on privilégie la lisibilité et une hiérarchie claire, le deuxième modèle est plus avantageux.
