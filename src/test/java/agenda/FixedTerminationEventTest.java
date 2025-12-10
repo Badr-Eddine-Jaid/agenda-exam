@@ -106,4 +106,15 @@ public class FixedTerminationEventTest {
                 "Cet événement ne se produit pas à W+4");
     }
 
+    @Test
+    public void eventIsNotAfterTermination() {
+        // Après la dernière occurrence (10 semaines après le début)
+        LocalDate after = nov_1_2020.plusWeeks(11);
+        assertFalse(fixedTermination.isInDay(after),
+        "L'événement ne doit plus se produire après sa terminaison");
+        assertFalse(fixedRepetitions.isInDay(after),
+        "L'événement ne doit plus se produire après sa terminaison");
+    }
+
+
 }

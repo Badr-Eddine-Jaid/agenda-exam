@@ -1,12 +1,12 @@
 package agenda;
 
-import org.junit.jupiter.api.Test;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 public class AgendaTestComplementaire {
 
@@ -81,4 +81,21 @@ public class AgendaTestComplementaire {
         Event candidate = new Event("Après", d.plusHours(1), oneHour);
         assertTrue(agenda.isFreeFor(candidate));
     }
+    @Test
+    public void isFreeForOnEmptyAgendaIsTrue() {
+        Agenda agenda = new Agenda();
+        LocalDateTime d = LocalDateTime.of(2020, 11, 1, 10, 0);
+        Duration oneHour = Duration.ofMinutes(60);
+        Event e = new Event("Test", d, oneHour);
+
+        assertTrue(agenda.isFreeFor(e));
+    }
+    @Test
+    public void findByTitleOnEmptyAgendaReturnsEmptyList() {
+        Agenda agenda = new Agenda();
+        var found = agenda.findByTitle("Quelque chose");
+        assertTrue(found.isEmpty());
+    }
+
+
 }

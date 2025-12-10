@@ -71,4 +71,55 @@ public class AgendaTest {
         assertTrue(agenda.eventsInDay(nov_1_2020).contains(neverEnding));
     }
 
+    @Test
+    public void eventsInDayReturnsEmptyListWhenNoEvent() {
+        Agenda agenda = new Agenda();
+        LocalDate day = LocalDate.of(2020, 11, 1);
+        assertTrue(agenda.eventsInDay(day).isEmpty());
+    }
+
+    @Test
+    public void findByTitleOnEmptyAgendaReturnsEmptyList() {
+        Agenda agenda = new Agenda();
+        assertTrue(agenda.findByTitle("Titre").isEmpty());
+    }
+
+    @Test
+    public void isFreeForOnEmptyAgendaIsTrue() {
+        Agenda agenda = new Agenda();
+        LocalDateTime start = LocalDateTime.of(2020, 11, 1, 10, 0);
+        Duration oneHour = Duration.ofMinutes(60);
+        Event e = new Event("Test", start, oneHour);
+
+        assertTrue(agenda.isFreeFor(e));
+    }
+    @Test
+    public void isFreeForWhenEventEndsExactlyAtExistingStart() {
+        Agenda agenda = new Agenda();
+        LocalDateTime start = LocalDateTime.of(2020, 11, 1, 10, 0);
+        Duration oneHour = Duration.ofMinutes(60);
+
+        Event existing = new Event("E1", start, oneHour);           // 10h–11h
+        agenda.addEvent(existing);
+
+        Event candidate = new Event("Before", start.minusHours(1), oneHour); // 9h–10h
+
+        assertTrue(agenda.isFreeFor(candidate));
+    }
+
+    @Test
+    public void isFreeForWhenEventStartsExactlyAtExistingEnd() {
+        Agenda agenda = new Agenda();
+        LocalDateTime start = LocalDateTime.of(2020, 11, 1, 10, 0);
+        Duration oneHour = Duration.ofMinutes(60);
+
+        Event existing = new Event("E1", start, oneHour);           // 10h–11h
+        agenda.addEvent(existing);
+
+        Event candidate = new Event("After", start.plusHours(1), oneHour); // 11h–12h
+
+        assertTrue(agenda.isFreeFor(candidate));
+    }
+
+
 }
